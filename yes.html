@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mám tě rád! ❤️</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            background: linear-gradient(135deg, #ffeef8 0%, #ffe0f0 50%, #ffd6e8 100%);
+            overflow: hidden;
+            position: relative;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Animované srdíčka padající shora */
+        .hearts-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .falling-heart {
+            position: absolute;
+            top: -50px;
+            font-size: 30px;
+            animation: fall linear infinite;
+            opacity: 0.8;
+        }
+
+        @keyframes fall {
+            0% {
+                top: -50px;
+                transform: translateX(0) rotate(0deg);
+            }
+            100% {
+                top: 110vh;
+                transform: translateX(100px) rotate(360deg);
+            }
+        }
+
+        /* Hlavní kontejner */
+        .container {
+            text-align: center;
+            z-index: 1;
+            position: relative;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 60px;
+            border-radius: 30px;
+            box-shadow: 0 10px 40px rgba(255, 107, 157, 0.3);
+        }
+
+        h1 {
+            font-size: 4em;
+            color: #c94b7a;
+            margin-bottom: 30px;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+        }
+
+        .hearts {
+            font-size: 3em;
+            margin: 20px 0;
+        }
+
+        .message {
+            font-size: 2em;
+            color: #333;
+            margin: 30px 0;
+        }
+
+        /* Místo pro samolepku */
+        .sticker-container {
+            margin-top: 40px;
+            min-height: 200px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .sticker-placeholder {
+            font-size: 8em;
+            animation: bounce 1s ease-in-out infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
+        /* Pokud chceš přidat vlastní obrázek samolepky, použij toto: */
+        .sticker-image {
+            max-width: 300px;
+            max-height: 300px;
+            border-radius: 20px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Padající srdíčka -->
+    <div class="hearts-bg" id="heartsContainer"></div>
+
+    <!-- Hlavní obsah -->
+    <div class="container">
+        <h1>Mám tě rád Káji! 💖</h1>
+        
+        <div class="hearts">
+            ❤️ ❤️ ❤️ ❤️ ❤️ ❤️ ❤️
+        </div>
+
+        <div class="message">
+            ✨Děkuji,že tě mám a těším se až te uvidím! ✨
+        </div>
+
+        <!-- Místo pro samolepku -->
+        <div class="sticker-container">
+            <!-- Placeholder emoji - nahraď vlastním obrázkem -->
+            <div class="sticker-placeholder">🥰</div>
+            
+            <!-- Pokud budeš chtít přidat vlastní obrázek, odkomentuj toto a smaž placeholder výše:
+            <img src="tvoje-samolepka.png" alt="Samolepka" class="sticker-image">
+            -->
+        </div>
+    </div>
+
+    <script>
+        // Vytvoření padajících srdíček
+        function createFallingHearts() {
+            const container = document.getElementById('heartsContainer');
+            const heartShapes = ['❤️', '💕', '💗', '💖', '💝', '💓', '💞'];
+            
+            // Vytvoř 20 padajících srdíček
+            for (let i = 0; i < 20; i++) {
+                setTimeout(() => {
+                    const heart = document.createElement('div');
+                    heart.className = 'falling-heart';
+                    heart.textContent = heartShapes[Math.floor(Math.random() * heartShapes.length)];
+                    heart.style.left = Math.random() * 100 + '%';
+                    heart.style.fontSize = (Math.random() * 20 + 20) + 'px';
+                    heart.style.animationDuration = (Math.random() * 3 + 4) + 's';
+                    heart.style.animationDelay = Math.random() * 2 + 's';
+                    container.appendChild(heart);
+                    
+                    // Odstraň srdíčko po animaci
+                    setTimeout(() => {
+                        heart.remove();
+                    }, 7000);
+                }, i * 300);
+            }
+            
+            // Opakuj vytváření srdíček
+            setInterval(() => {
+                const heart = document.createElement('div');
+                heart.className = 'falling-heart';
+                heart.textContent = heartShapes[Math.floor(Math.random() * heartShapes.length)];
+                heart.style.left = Math.random() * 100 + '%';
+                heart.style.fontSize = (Math.random() * 20 + 20) + 'px';
+                heart.style.animationDuration = (Math.random() * 3 + 4) + 's';
+                container.appendChild(heart);
+                
+                setTimeout(() => {
+                    heart.remove();
+                }, 7000);
+            }, 600);
+        }
+
+        // Inicializace
+        createFallingHearts();
+    </script>
+</body>
+</html>
